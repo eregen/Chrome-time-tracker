@@ -1,0 +1,11 @@
+body {
+    background-color: rgba(0, 0, 0,);
+}
+
+#t {
+	min-width:200px;
+}
+
+#tcenter {
+	text-align: center;
+}
