@@ -16,18 +16,18 @@ var update = function() {
 				currDomainIdx = null;
 			} else {
 				if (domains.indexOf(response) < 0) {
-                    domains.push(response);         //Store website URL
-                    icons.push(tabs[0].favIconUrl); //Store tab favicon
-					times.push(0);
-					ind.push(tabs[0].index);
+                    		    domains.push(response);         //Store website URL
+                   		    icons.push(tabs[0].favIconUrl); //Store tab favicon
+				    times.push(0);
+				    ind.push(tabs[0].index);
 
 				}
 				
-                currDomainIdx = domains.indexOf(response);
-                //icons.push(tabs[0].favIconUrl)
+                	currDomainIdx = domains.indexOf(response);
+                
 			}
 
-			//for (var i = 0; i < domains.length; i++) {
+			//for (var i = 0; i < domains.length; i++) {   		Attempt to remove any closed tabs from the arrays if they were found to be inactive
 			//	if (tabs[i].active === false){
 			//		domains.splice(i,1);
 			//		icons.splice(i,1);
