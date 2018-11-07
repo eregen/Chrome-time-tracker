@@ -2,10 +2,12 @@ var currDomainIdx = null;
 var domains = [];
 var icons = [];
 var times = [];
+var ind = [];
 
 localStorage.setItem("domains", JSON.stringify(domains));  //to be listed in table
 localStorage.setItem("icons", JSON.stringify(icons));
 localStorage.setItem("times", JSON.stringify(times));
+localStorage.setItem("ind", JSON.stringify(ind));
 
 var update = function() {
 	chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
@@ -17,16 +19,24 @@ var update = function() {
                     domains.push(response);         //Store website URL
                     icons.push(tabs[0].favIconUrl); //Store tab favicon
 					times.push(0);
-					
+					ind.push(tabs[0].index);
 
 				}
 				
                 currDomainIdx = domains.indexOf(response);
                 //icons.push(tabs[0].favIconUrl)
 			}
+
+			//for (var i = 0; i < domains.length; i++) {
+			//	if (tabs[i].active === false){
+			//		domains.splice(i,1);
+			//		icons.splice(i,1);
+			//		times.splice(i,1);
+			//		ind.splice(i,1);
+				
+				} 	
 		});
 	});
-};
 
 chrome.tabs.onActivated.addListener(function(activeInfo) {
 	update();//udpate when user switches tabs
@@ -36,20 +46,12 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 	update();//update when a new URL is entered on a tab
 });
 
-chrome.tabs.onRemoved.addListener(function(activeInfo) {
-//	chrome.tabs.query(queryInfo, function(tabs) {
-//    for (let i = 0; i < tabs.length; i++) {
-//        let tab = tabs[i];
-//		if(tab.active == false){
-//			domains.splice(i,1);
-//			logos.splice(i,1);
-//			times.splice(i,1);
-			
+chrome.tabs.onDetached.addListener(function(tabId, changeInfo, tab) {
+	update();//update when a tab is taken out of window
+});
 
-//		}
-
-//}
-//});
+chrome.tabs.onRemoved.addListener(function(tabId, changeInfo, tab) {
+	update();//update when a tab is closed
 });
 
 update();
@@ -63,6 +65,8 @@ setInterval(function() {
     localStorage.setItem("domains", JSON.stringify(domains));
     localStorage.setItem("icons", JSON.stringify(icons));
 	localStorage.setItem("times", JSON.stringify(times));
+	localStorage.setItem("ind", JSON.stringify(ind));
 }, 0);
+
 
 
