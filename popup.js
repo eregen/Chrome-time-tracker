@@ -2,6 +2,7 @@ setInterval(function() {
 	var domains = JSON.parse(localStorage.domains);
 	var icons = JSON.parse(localStorage.icons);
 	var times = JSON.parse(localStorage.times);
+	var ind = JSON.parse(localStorage.ind);
 
 	var ihtml = "<table id=\"t\">";
 	
@@ -13,10 +14,10 @@ setInterval(function() {
 
 	for (var i = 0; i < domains.length; i++) {
 		ihtml += "<tr>";
-		ihtml += "<td>" + (i + 1) + "</td>";
+		ihtml += "<td>" + (ind[i] + 1) + "</td>";
 		ihtml += "<td> <picture>" ;
-		ihtml += "<source media= '(min-width: 250px)' srcset=" + icons[i] + ">";
-		ihtml += "<img src='favicon' alt='' style='width:auto;'>" ;
+		ihtml += "<source media= '(min-width: 100px)' srcset=" + icons[i] + ">";
+		ihtml += "<img src='favicon' alt='' height='36' width='36' style='width:auto;'>" ;
 		ihtml += "<picture> <td>"; 
 		ihtml += "<td>" + (times[i] / 60000.0).toFixed(1) + " mins"  + "</td>";
 		ihtml += "</tr>";
